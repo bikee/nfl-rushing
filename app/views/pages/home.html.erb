@@ -1,0 +1,62 @@
+<div class="container">
+  <h2>NFL Rushing</h2>
+
+  <%= form_tag(root_path, method: :get)do %>
+    <%= text_field_tag(:search, params[:search], placeholder: 'Search by name...')%>
+    <%= button_tag(type: "submit") do %>
+      <i class="fa fa-search"></i>
+    <% end %>
+  <% end %>
+
+  <div class="gap-between"></div>
+
+  <a class="button4" style="background-color:#4e9af1" href=<%=root_path%>> Reset </a>
+
+  <a class="button4" style="background-color:#4e9af1" href=<%=csv_export_report_path(format: 'csv', direction: params["direction"], sort: params["sort"], search: params["search"])%>> Export to CSV </a>
+
+  <div class="gap-between"></div>
+
+  <table class="player"> 
+    <tr> 
+      <th class="row-player"><%= sortable "name", "Player" %></th> 
+      <th class="row-team">Team</th>
+      <th class="row-pos">Pos</th>
+      <th class="row-att">Att</th> 
+      <th class="row-att-g">Att/G</th>
+      <th class="row-yds"><%= sortable "yds", "Yds" %></th>
+      <th class="row-avg">Avg</th> 
+      <th class="row-yds-g">Yds/G</th>
+      <th class="row-td"><%= sortable "td", "TD" %></th>
+      <th class="row-td"><%= sortable "lng", "Lng" %></th>
+      <th class="row-first">1st</th> 
+      <th class="row-first-perc">1st%</th>
+      <th class="row-plus-20">20+</th>
+      <th class="row-plus-40">40+</th> 
+      <th class="row-fum">FUM</th>
+    </tr>
+    <% @players.each do |player| %>
+        <tr>
+          <td><%= player.name%></td>
+          <td><%= player.team%></td>
+          <td><%= player.pos%></td>
+          <td><%= player.att%></td>
+          <td><%= player.att_g%></td>
+          <td><%= player.yds%></td>
+          <td><%= player.avg%></td>
+          <td><%= player.yds_g%></td>
+          <td><%= player.td%></td>
+          <td><%= player.lng%></td>
+          <td><%= player.first%></td>
+          <td><%= player.first_perc%></td>
+          <td><%= player.plus_20%></td>
+          <td><%= player.plus_40%></td>
+          <td><%= player.fum%></td>
+        </tr>
+    <% end%>
+  </table>
+
+  <div class="gap-between"></div>
+
+  <%= paginate @players%>
+
+</div>
